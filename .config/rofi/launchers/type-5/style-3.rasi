@@ -35,7 +35,7 @@ window {
     height:                      680px;
     x-offset:                    0px;
     y-offset:                    0px;
-    background-image: url("/home/aly/.wallpapers/wallmenu",width) ;
+    background-image: url("/home/aly/wallpapers/wallmenu",width) ;
 
     /* properties for all widgets */
     enabled:                     true;

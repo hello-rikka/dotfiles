@@ -45,7 +45,7 @@ window {
     enabled:                     true;
     border-radius:               15px;
     cursor:                      "default";
-    background-image:            url("/home/aly/.wallpapers/desktop/Yae.Miko.full.3968183.jpg", width);
+    background-image:            url("/home/aly/wallpapers/desktop/Yae.Miko.full.3968183.jpg", width);
 
 }
 

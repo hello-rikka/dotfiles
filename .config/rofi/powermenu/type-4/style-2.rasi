@@ -43,7 +43,7 @@ window {
     fullscreen:                  true;
     cursor:                      "default";
     background-color:            var(background-window);
-    /*background-image:            url("/home/aly/.wallpapers/wallmenu", width);*/
+    /*background-image:            url("/home/aly/wallpapers/wallmenu", width);*/
 
 }
 

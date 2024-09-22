@@ -40,7 +40,7 @@ window {
     padding:                     0px;
     border-radius:               12px;
     cursor:                      "default";
-    background-image:            url("~/.config/.wallpapers/wallmenu", width);
+    background-image:            url("~/.config/wallpapers/wallmenu", width);
 
 }
 

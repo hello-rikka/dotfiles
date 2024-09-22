@@ -1,12 +1,12 @@
 DirIconLocal=$HOME/.icons
 DirThemeLocal=$HOME/.themes
 DirFontLocal=$HOME/.local/share/fonts
-DirConfigLocal=$HOME/.config
+DirConfigLocal=$HOME/.config/
 
 DirIcon=.icons/*
 DirTheme=.themes/*
 DirFont=.local/share/fonts/*
-DirConfig=/.config/*
+DirConfig=.config/*
 
 checkDir(){
     ls $1 >/dev/null 2>&1
@@ -35,16 +35,20 @@ Cp "$DirIcon" "$DirIconLocal"
 Cp "$DirTheme" "$DirThemeLocal"
 Cp "$DirFont" "$DirFontLocal"
 
-
-git clone https://aur.archlinux.org/paru-git.git
-cd paru-git
-makepkg -si
-
-if [ $? -eq 0 ]; then
-        echo "đã cài đặt paru"
+pacman -Qs paru >/dev/null 2>&1
+if [ $? -eq 0 ];then
+    echo "paru đã được cài đặt"
+else
+    git clone https://aur.archlinux.org/paru-git.git
+    cd paru-git
+    makepkg -si
+    if [ $? -eq 0 ]; then
+        echo "đã cài đặt thành công paru"
     else
         echo "cài đặt không thành công"
     fi
+fi
+
 
 
 paru -Syu --skipreview --noconfirm -y
@@ -56,25 +60,35 @@ if [ $? -eq 0 ]; then
 
 
 
-package=(hyprland zsh sway network-manager-applet blueman dunst rofi-lbonn-wayland-git jd-tool waybar swww cliphist polkit-kde-agent xdg-desktop-portal-hyprland brightnessctl pavucontrol pamixer nwg-look fcitx5-bamboo-git fcitx5-gtk fcitx5-configtool)
+package=(hyprland btop swaylock-effects hyprshot zsh sway network-manager-applet kitty blueman dunst rofi-lbonn-wayland-git jd-tool waybar swww cliphist polkit-kde-agent xdg-desktop-portal-hyprland brightnessctl pavucontrol pamixer nwg-look fcitx5-bamboo-git fcitx5-gtk fcitx5-configtool)
 
 for variable in ${package[@]}
 do
-    paru -S $variable --skipreview --noconfirm -y > 
-    if [ $? -eq 0 ]; then
-        echo "Đã cài xong $variable"
+    paru -Qs $variable >/dev/null 2>&1
+    if [ $? -eq 0 ];then
+        echo "[Đã được cài đặt] $variable"
+        continue
     else
-        echo "lỗi cài đặt $variable"
-        echo "$variable" >> ./log/logerrors.txt
+        paru -S $variable --skipreview --noconfirm -y
+            if [ $? -eq 0 ]; then
+                echo "[Đã cài xong] $variable"
+            else
+                echo "[lỗi cài đặt] $variable"
+                echo "$variable" >> ./log/logerrors.txt
+            fi
     fi
+
 done
 
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" >/dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo "ohmyzsh đã cài đặt"
+fi
 cp -r $DirConfig $DirConfigLocal
+if [ $? -eq 0 ]; then
+        echo "config done"
+    else
+        echo "config error"
+    fi
 
 reboot
-
-
-
-
-

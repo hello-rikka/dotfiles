@@ -1,6 +1,6 @@
-imagePath=~/.config/.wallpapers/desktop/
+imagePath=~/.config/wallpapers/desktop/
 theme=~/.config/rofi/select/selectswww.rasi
-dirImgMenu=~/.config/.wallpapers/wallmenu
+dirImgMenu=~/.config/wallpapers/wallmenu
 handlerImage() {
   image=$(ls $imagePath | while read A; do echo -en "$A\x00icon\x1f$imagePath$A\n"; done | rofi -dmenu -theme $theme )
   link_img="${imagePath}${image}"
