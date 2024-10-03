@@ -8,6 +8,66 @@ DirTheme=.themes/*
 DirFont=.local/share/fonts/*
 DirConfig=.config/*
 
+
+
+pacman -Qs paru >/dev/null 2>&1
+if [ $? -eq 0 ];then
+    echo "paru đã được cài đặt"
+else
+    git clone https://aur.archlinux.org/paru-git.git
+    cd paru-git
+    makepkg -si
+    if [ $? -eq 0 ]; then
+        echo "đã cài đặt thành công paru"
+    else
+        echo "cài đặt không thành công"
+    fi
+fi
+
+
+
+paru -Syu --skipreview --noconfirm -y
+if [ $? -eq 0 ]; then
+    echo "đã cập nhập thành công"
+else
+    echo "đã cập nhập không thành công"
+fi
+
+
+
+package=(hyprland btop swaylock-effects hyprshot zsh sway network-manager-applet kitty blueman dunst rofi-lbonn-wayland-git jd-tool waybar swww cliphist polkit-kde-agent xdg-desktop-portal-hyprland brightnessctl pavucontrol pamixer nwg-look fcitx5-bamboo-git fcitx5-gtk fcitx5-configtool)
+
+for variable in ${package[@]}
+do
+    paru -Qs $variable >/dev/null 2>&1
+    if [ $? -eq 0 ];then
+        echo "[Đã được cài đặt] $variable"
+        continue
+    else
+        paru -S $variable --skipreview --noconfirm -y >/dev/null 2>&1
+        if [ $? -eq 0 ]; then
+            echo "[Đã cài xong] $variable"
+        else
+            echo "[lỗi cài đặt] $variable"
+            echo "$variable" >> ./log/logerrors.txt
+        fi
+    fi
+    
+done
+
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" >/dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo "ohmyzsh đã cài đặt"
+fi
+cp -r $DirConfig $DirConfigLocal
+if [ $? -eq 0 ]; then
+    echo "config done"
+else
+    echo "config error"
+fi
+
+
+
 checkDir(){
     ls $1 >/dev/null 2>&1
     if [ $? -eq 0 ]; then
@@ -34,61 +94,4 @@ Cp(){
 Cp "$DirIcon" "$DirIconLocal"
 Cp "$DirTheme" "$DirThemeLocal"
 Cp "$DirFont" "$DirFontLocal"
-
-pacman -Qs paru >/dev/null 2>&1
-if [ $? -eq 0 ];then
-    echo "paru đã được cài đặt"
-else
-    git clone https://aur.archlinux.org/paru-git.git
-    cd paru-git
-    makepkg -si
-    if [ $? -eq 0 ]; then
-        echo "đã cài đặt thành công paru"
-    else
-        echo "cài đặt không thành công"
-    fi
-fi
-
-
-
-paru -Syu --skipreview --noconfirm -y
-if [ $? -eq 0 ]; then
-        echo "đã cập nhập thành công"
-    else
-        echo "đã cập nhập không thành công"
-    fi
-
-
-
-package=(hyprland btop swaylock-effects hyprshot zsh sway network-manager-applet kitty blueman dunst rofi-lbonn-wayland-git jd-tool waybar swww cliphist polkit-kde-agent xdg-desktop-portal-hyprland brightnessctl pavucontrol pamixer nwg-look fcitx5-bamboo-git fcitx5-gtk fcitx5-configtool)
-
-for variable in ${package[@]}
-do
-    paru -Qs $variable >/dev/null 2>&1
-    if [ $? -eq 0 ];then
-        echo "[Đã được cài đặt] $variable"
-        continue
-    else
-        paru -S $variable --skipreview --noconfirm -y
-            if [ $? -eq 0 ]; then
-                echo "[Đã cài xong] $variable"
-            else
-                echo "[lỗi cài đặt] $variable"
-                echo "$variable" >> ./log/logerrors.txt
-            fi
-    fi
-
-done
-
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" >/dev/null 2>&1
-if [ $? -eq 0 ]; then
-    echo "ohmyzsh đã cài đặt"
-fi
-cp -r $DirConfig $DirConfigLocal
-if [ $? -eq 0 ]; then
-        echo "config done"
-    else
-        echo "config error"
-    fi
-
 reboot
