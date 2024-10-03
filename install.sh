@@ -9,6 +9,33 @@ DirFont=.local/share/fonts/*
 DirConfig=.config/*
 
 
+checkDir(){
+    ls $1 >/dev/null 2>&1
+    if [ $? -eq 0 ]; then
+        echo "có folder" $1
+    else
+        mkdir $1
+        echo "đã tạo folder" $1
+    fi
+}
+
+checkDir "$DirIconLocal"
+checkDir "$DirThemeLocal"
+checkDir "$DirFontLocal"
+
+Cp(){
+    cp -r $1 $2 >/dev/null 2>&1
+    if [ $? -eq 0 ]; then
+        echo "đã di chuyển file $1 đến $2"
+    else
+        echo "không thể di chuyển file $1 đến $2"
+    fi
+}
+
+Cp "$DirIcon" "$DirIconLocal"
+Cp "$DirTheme" "$DirThemeLocal"
+Cp "$DirFont" "$DirFontLocal"
+
 
 pacman -Qs paru >/dev/null 2>&1
 if [ $? -eq 0 ];then
@@ -68,30 +95,22 @@ fi
 
 
 
-checkDir(){
-    ls $1 >/dev/null 2>&1
-    if [ $? -eq 0 ]; then
-        echo "có folder" $1
-    else
-        mkdir $1
-        echo "đã tạo folder" $1
-    fi
-}
 
-checkDir "$DirIconLocal"
-checkDir "$DirThemeLocal"
-checkDir "$DirFontLocal"
 
-Cp(){
-    cp -r $1 $2 >/dev/null 2>&1
-    if [ $? -eq 0 ]; then
-        echo "đã di chuyển file $1 đến $2"
-    else
-        echo "không thể di chuyển file $1 đến $2"
-    fi
-}
 
-Cp "$DirIcon" "$DirIconLocal"
-Cp "$DirTheme" "$DirThemeLocal"
-Cp "$DirFont" "$DirFontLocal"
+git clone git@github.com:meomeowth/wallpapers.git
+ls wallpapers
+if [ $? -eq 0 ]; then
+    echo "đã tải thành công"
+else
+    echo "tải không thành công"
+fi
+
+cp -r wallpapers $DirConfigLocal
+if [ $? -eq 0 ]; then
+    echo "Đã config file wallpages"
+else
+    echo "Config  không thành công"
+fi
+
 reboot
