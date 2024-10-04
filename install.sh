@@ -79,14 +79,21 @@ do
             echo "$variable" >> ./log/logerrors.txt
         fi
     fi
-    
+
 done
 
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" >/dev/null 2>&1
-if [ $? -eq 0 ]; then
-    echo "ohmyzsh đã cài đặt"
-fi
+
 cp -r $DirConfig $DirConfigLocal
+ls ~/.oh-my-zsh >/dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo "oh-my-zsh đã cài đặt"
+else
+    cp -r .oh-my-zsh ~/
+    echo "oh-my-zsh đã cài đặt"
+
+fi
+
+cp
 if [ $? -eq 0 ]; then
     echo "config done"
 else
@@ -98,7 +105,7 @@ fi
 
 
 
-git clone git@github.com:meomeowth/wallpapers.git
+git clone https://github.com/meomeowth/wallpapers.git
 ls wallpapers
 if [ $? -eq 0 ]; then
     echo "đã tải thành công"
@@ -113,4 +120,4 @@ else
     echo "Config  không thành công"
 fi
 
-reboot
+# reboot
