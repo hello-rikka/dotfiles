@@ -83,7 +83,8 @@ do
 done
 
 
-cp -r $DirConfig $DirConfigLocal
+cp -r .config/* $HOME/.config/
+cp .zshrc ~/
 ls ~/.oh-my-zsh >/dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo "oh-my-zsh đã cài đặt"
@@ -92,8 +93,6 @@ else
     echo "oh-my-zsh đã cài đặt"
 
 fi
-
-cp
 if [ $? -eq 0 ]; then
     echo "config done"
 else
@@ -120,4 +119,4 @@ else
     echo "Config  không thành công"
 fi
 
-# reboot
+reboot
