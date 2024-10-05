@@ -79,31 +79,8 @@ do
             echo "$variable" >> ./log/logerrors.txt
         fi
     fi
-
+    
 done
-
-
-cp -r .config/* $HOME/.config/
-cp .zshrc ~/
-ls ~/.oh-my-zsh >/dev/null 2>&1
-if [ $? -eq 0 ]; then
-    echo "oh-my-zsh đã cài đặt"
-else
-    cp -r .oh-my-zsh ~/
-    echo "oh-my-zsh đã cài đặt"
-
-fi
-if [ $? -eq 0 ]; then
-    echo "config done"
-else
-    echo "config error"
-fi
-
-
-
-
-
-
 git clone https://github.com/meomeowth/wallpapers.git
 ls wallpapers
 if [ $? -eq 0 ]; then
@@ -119,4 +96,20 @@ else
     echo "Config  không thành công"
 fi
 
-reboot
+# cp -r .config/* $HOME/.config/
+Cp "$DirConfig" "$DirConfigLocal"
+ls ~/.oh-my-zsh >/dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo "oh-my-zsh đã cài đặt"
+else
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    echo "oh-my-zsh đã cài đặt"
+fi
+
+# cp -r .config/* $HOME/.config/
+cp .zshrc ~/
+
+
+
+
+# reboot
