@@ -31,7 +31,7 @@
 
 [========]
 
-*Install*
+*auto Install(may be faulty)*
 
 ```bash
 git clone https://github.com/meomeowth/dotfiles.git
@@ -39,3 +39,12 @@ cd ./dotfiles
 ./install.sh
 ```
 
+```bash
+cd ./dotfiles
+cp -r .config/* ~/.config
+mkdir .local/share/fonnts
+cp -r .local/share/fonnts/* ~/.local/share/fonnts
+cp -r .icon ~/
+cp -r .themes ~/
+cp .zshrc ~/
+```
