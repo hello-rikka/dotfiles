@@ -38,7 +38,7 @@ git clone https://github.com/meomeowth/dotfiles.git
 cd ./dotfiles
 ./install.sh
 ```
-
+*Normal install*
 ```bash
 cd ./dotfiles
 cp -r .config/* ~/.config
