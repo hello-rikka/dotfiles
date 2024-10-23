@@ -14,16 +14,14 @@
     "modules-center": [
         "wlr/taskbar",
         "hyprland/workspaces"
-        //"sway/workspaces"
     ],
     // wlr
     "modules-right": [
-       // "custom/window",
         "custom/cliphist",
-        //"custom/gpuinfo",
         "network",
         "cpu",
         "memory",
+        "disk" ,
         "battery",
         "pulseaudio",
         "pulseaudio#microphone",
@@ -73,7 +71,7 @@
         "status-icons": {
             "paused": "⏸"
         },
-        "max-length" : 50,
+        "max-length" : 50
     },
     "wlr/taskbar": {
         "all-outputs": true,
@@ -113,6 +111,12 @@
             "▇",
             "█"
         ]
+    },
+
+    "disk": {
+        "interval": 30,
+        "format": "{specific_free:0.2f} meomiden GB out of {specific_total:0.2f} GB available. Alternatively {free} out of {total} available",
+        "unit": "GB"
     },
     "sway/workspaces": {
         "disable-scroll": true,
